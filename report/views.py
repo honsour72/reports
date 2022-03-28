@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from .models import UserRegion, Reports
 from django.http import HttpResponseRedirect, HttpResponse
@@ -5,6 +6,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 
 # Create your views here.
 
+@login_required
 def home(request):
     reports = Reports.objects.all()
     context = {"reports": reports}
