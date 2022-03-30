@@ -2,7 +2,6 @@
 {% block title %}Добро пожаловать{% endblock %}
 
 {% block content %}
-{% if user.is_superuser %}
 <table>
     <tr>
       <th>Дата</th><th>Сам отчёт</th><th>Автор</th>
@@ -11,7 +10,9 @@
     <tr>
         <td>{{r.datepub}}</td>
         <td>{{r.text}}</td>
+        {% if user.is_superuser %}
         <td>{{r.author}}</td>
+        {% endif %}
         <td><a href="{% url 'edit_report' r.pk %}"> <button class="double-btn">Редактировать</button></a></td>
     </tr>
     {% endfor %}
@@ -19,21 +20,4 @@
 <a href="{% url 'make_report' %}">
     <button class="button-1">Создать новый</button>
 </a>
-{% else %}
-<table>
-    <tr>
-        <th>Дата</th><th>Сам отчёт</th>
-    </tr>
-    {% for r in report %}
-    <tr>
-        <td>{{r.datepub}}</td>
-        <td>{{r.text}}</td>
-        <td><a href="{% url 'edit_report' r.pk %}"> <button class="double-btn">Редактировать</button></a></td>
-    </tr>
-    {% endfor %}
-</table>
-<a href="{% url 'make_report' %}">
-    <button class="button-1">Создать новый</button>
-</a>
-{% endif %}
 {% endblock %}
