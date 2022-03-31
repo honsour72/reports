@@ -19,20 +19,38 @@ def home(request):
     если отчёт в единственном экземляре
     надо не забыть про удаление отчётов!!!
     """
-    print(dir(request.user)) #методы
-    print(request.user.pk)
-    reports = Reports.objects.all() if request.user.is_superuser else Reports.objects.get(id=request.user.pk)
-    if len(reports) == 1:
-        context = {"report": [reports]}
-    else:
-        context = {"report": reports}
-    return render(request, 'reports.html', context)
 
+    # reports = Reports.objects.all() if request.user.is_superuser else Reports.objects.get(id=request.user.pk)
+    # if len(reports) == 1:
+    #     context = {"report": [reports]}
+    # else:
+    #     context = {"report": reports}
+    # if request.user.is_superuser:
+    #     reports = Reports.objects.all()
+    #     context = {"reports": reports}
+    # else:
+    #     reports = Reports.objects.all()
+    #     context = {"reports": []}
+    # for r in reports:
+    #     if r.author == request.user.username:
+    #         context["reports"].append(r)
+    #
+    # return render(request, 'reports.html', context)
+    reports = Reports.objects.all()
+    if request.user.is_superuser:
+        context = {"reports": reports}
+    else:
+        context = {"reports": []}
+        for r in reports:
+            if r.author == request.user.username:
+                context["reports"].append(r)
+
+    return render(request, 'reports.html', context)
 
 @login_required
 def make_report(request):
     if request.method == 'GET':
-        context = {'form': ReportsForm()}
+        context = {'form': ReportsForm(initial={'author':request.user.username})}
         return render(request, 'make_report.html', context)
     if request.method == 'POST':
         reports_form = ReportsForm(request.POST)
@@ -50,3 +68,6 @@ def edit_report(request, report_id):
         current_report_form = ReportsForm(request.POST, instance=current_report)
         current_report_form.save()
         return HttpResponseRedirect('/reports')
+
+
+#def delete_report

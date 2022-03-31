@@ -14,7 +14,12 @@
         <label>Введите текст</label><br>
         {{ form.text }}
     </p>
-    <p style="display: None">{{ form.author }}</p>
+    {% if user.is_superuser %}
+<!--    <td>{{ form.author }}</td>-->
+    <input type="text" name="author" value="{{ user.username }}" maxlength="25" required id="id_author">
+    {% else %}
+    <input type="text" name="author" value="{{ user.username }}" maxlength="25" required id="id_author" disabled>
+    {% endif %}
     <button class="button-1" type="submit">Создать отчёт</button>
 </form>
 {% endblock %}
