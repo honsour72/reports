@@ -13,8 +13,8 @@ from .models import Reports
 @login_required
 def home(request):
     """
-    спросить про reportpage
-    отображение отчётов в зависимости от прав пользователя
+
+
     условие длины необходимо для того, чтобы не возникало проблем
     если отчёт в единственном экземляре
     надо не забыть про удаление отчётов!!!
@@ -50,14 +50,21 @@ def home(request):
 @login_required
 def make_report(request):
     if request.method == 'GET':
-        context = {'form': ReportsForm(initial={'author':request.user.username})}
+        if request.user.is_superuser:
+            context = {'form': ReportsForm()}
+        else:
+            context = {'form': ReportsForm(initial={'author': request.user.username})}
         return render(request, 'make_report.html', context)
     if request.method == 'POST':
-        reports_form = ReportsForm(request.POST)
+        if request.user.is_superuser:
+            reports_form = ReportsForm(request.POST)
+        else:
+            reports_form = ReportsForm(request.POST, initial={'author': request.user.username})
         reports_form.save()
         return HttpResponseRedirect('/reports')
 
 
+@login_required
 def edit_report(request, report_id):
     current_report = Reports.objects.get(id=report_id)
     if request.method == 'GET':
@@ -70,4 +77,9 @@ def edit_report(request, report_id):
         return HttpResponseRedirect('/reports')
 
 
-#def delete_report
+@login_required
+def delete_report(request, delete_id):
+    current_report = Reports.objects.get(id=delete_id)
+    print(current_report)
+    current_report.delete()
+    return HttpResponseRedirect('/reports')
