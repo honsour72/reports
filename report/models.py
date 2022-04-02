@@ -40,5 +40,5 @@ class Reports(models.Model):
 # CASCADE: когда объект, на который имеется ссылка,
 # удаляется, все объекты, ссылающиеся на этот объект, также будут удалены.
 # промежуточная модель
-class Membership(models.Model):
-    reports = models.ForeignKey(Reports, on_delete=models.CASCADE)
+# class Membership(models.Model):
+#     reports = models.ForeignKey(Reports, on_delete=models.CASCADE)

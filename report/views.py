@@ -80,6 +80,6 @@ def edit_report(request, report_id):
 @login_required
 def delete_report(request, delete_id):
     current_report = Reports.objects.get(id=delete_id)
-    print(current_report)
+    # print(current_report)
     current_report.delete()
     return HttpResponseRedirect('/reports')
