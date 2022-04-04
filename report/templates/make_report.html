@@ -15,17 +15,11 @@
         {{ form.text }}
     </p>
     {% if user.is_superuser %}
-    {{ form.author }}
-<!--    <input type="text" name="author" value="{{ user.username }}" required id="id_author">-->
+        {{ form.author.as_table }}
     {% else %}
     <div style="display:none;">{{ form.author }}</div>
     {% endif %}
-    <!--    {% if user.is_superuser %}-->
-<!-- <td>{{ form.author }}</td>-->
-<!--    <input type="text" name="author" value="{{ user.username }}" maxlength="25" required id="id_author">-->
-<!--    {% else %}-->
-<!--    <input type="text" name="author" value="{{ user.username }}" maxlength="25" required id="id_author" disabled>-->
-<!--    {% endif %}-->
+
     <button class="button-1" type="submit">Создать отчёт</button>
 </form>
 {% endblock %}

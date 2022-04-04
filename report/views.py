@@ -13,29 +13,12 @@ from .models import Reports
 @login_required
 def home(request):
     """
-
-
-    условие длины необходимо для того, чтобы не возникало проблем
-    если отчёт в единственном экземляре
-    надо не забыть про удаление отчётов!!!
+    Дата заполнения отчёта определяется автоматически? ДА
+    Сортировке отчётов быть? По какому принципу производится сортировка?
+     ФИО и дата
+    Сколько примерно символов занимает отчёт? 300-500
+    combobox авторов
     """
-
-    # reports = Reports.objects.all() if request.user.is_superuser else Reports.objects.get(id=request.user.pk)
-    # if len(reports) == 1:
-    #     context = {"report": [reports]}
-    # else:
-    #     context = {"report": reports}
-    # if request.user.is_superuser:
-    #     reports = Reports.objects.all()
-    #     context = {"reports": reports}
-    # else:
-    #     reports = Reports.objects.all()
-    #     context = {"reports": []}
-    # for r in reports:
-    #     if r.author == request.user.username:
-    #         context["reports"].append(r)
-    #
-    # return render(request, 'reports.html', context)
     reports = Reports.objects.all()
     if request.user.is_superuser:
         context = {"reports": reports}
@@ -53,7 +36,9 @@ def make_report(request):
         if request.user.is_superuser:
             context = {'form': ReportsForm()}
         else:
-            context = {'form': ReportsForm(initial={'author': request.user.username})}
+            # context = {'form': ReportsForm(initial={'author': request.user.username})}
+            r = Reports.objects.all()
+            context = {'form': ReportsForm(initial={'author': list(set([x.author for x in r]))})}
         return render(request, 'make_report.html', context)
     if request.method == 'POST':
         if request.user.is_superuser:
@@ -80,6 +65,5 @@ def edit_report(request, report_id):
 @login_required
 def delete_report(request, delete_id):
     current_report = Reports.objects.get(id=delete_id)
-    # print(current_report)
     current_report.delete()
     return HttpResponseRedirect('/reports')
