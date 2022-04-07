@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}С возвращением, {{ username }}{% endblock %}
+
+{% block content %}
+{% if all_reports %}
+    <table>
+        <thead>
+            <td>Дата и время создания</td>
+            <td>Текст отчёта</td>
+            {% if user.is_superuser %}<td>Автор отчёта</td>{% endif %}
+        </thead>
+        <tbody>
+        {% for report in all_reports %}
+            <tr>
+                <td>{{ report.datepub }} в {{ report.timepub }}</td>
+                <td>{{ report.text }}</td>
+                {% if user.is_superuser %}<td>{{ report.author.get_full_name }}</td>{% endif %}
+                <td><a href="{% url 'edit_report' report.pk %}">Редактировать</a></td>{% if user.is_superuser %}<td><a href="{% url 'delete_report' report.pk %}">Удалить отчёт</a></td>{% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>В данный момент отчётов нет</p>
+{% endif %}
+<a href="{% url 'create_report' %}">Создать новый</a>
+<a href="{% url 'logout' %}">Выйти</a>
+{% endblock %}

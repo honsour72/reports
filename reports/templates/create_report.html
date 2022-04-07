@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Новый отчёт{% endblock %}
+
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        <p>{{ form.datepub.label_tag }}<br>{{ form.datepub }}<br>{{ form.datepub.help_text }}</p>
+        <p>{{ form.timepub.label_tag }}<br>{{ form.timepub }}<br>{{ form.timepub.help_text }}</p>
+        <p>{{ form.text.label_tag }}<br>{{ form.text }}<br>{{ form.text.help_text }}</p>
+        {% if user.is_superuser %}
+            <p>{{ form.author.label_tag }}<br>{{ form.author }}<br>{{ form.author.help_text }}</p>
+        {% else %}
+            <p style="display: none">{{ form.author.label_tag }}<br>{{ form.author }}<br>{{ form.author.help_text }}</p>
+        {% endif %}
+        <input type="hidden" name="next" value="{{ next }}">
+        {% block create_button %}
+            <input type="submit" value="Создать">
+        {% endblock %}
+    </form>
+<a href="{% url 'all_reports' %}">На главную</a>
+{% endblock %}
