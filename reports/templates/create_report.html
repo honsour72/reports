@@ -3,6 +3,7 @@
 {% block title %}Новый отчёт{% endblock %}
 
 {% block content %}
+<div class="create_modal">
     <form method="post">
         {% csrf_token %}
         <p>{{ form.datepub.label_tag }}<br>{{ form.datepub }}<br>{{ form.datepub.help_text }}</p>
@@ -13,10 +14,12 @@
         {% else %}
             <p style="display: none">{{ form.author.label_tag }}<br>{{ form.author }}<br>{{ form.author.help_text }}</p>
         {% endif %}
-        <input type="hidden" name="next" value="{{ next }}">
+        <input type="hidden" name="next" value="{{ next }}"><br>
         {% block create_button %}
             <input type="submit" value="Создать">
         {% endblock %}
     </form>
-<a href="{% url 'all_reports' %}">На главную</a>
+    <br>
+    <button><a href="{% url 'all_reports' %}">На главную</a></button>
+</div>
 {% endblock %}

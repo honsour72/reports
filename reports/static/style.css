@@ -1,0 +1,230 @@
+/* Указываем box sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Убираем внутренние отступы */
+ul[class],
+ol[class] {
+  padding: 0;
+}
+
+/* Убираем внешние отступы */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Выставляем основные настройки по-умолчанию для body */
+body {
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+/* Удаляем стандартную стилизацию для всех ul и il, у которых есть атрибут class*/
+ul[class],
+ol[class] {
+  list-style: none;
+}
+
+/* Элементы a, у которых нет класса, сбрасываем до дефолтных стилей */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Упрощаем работу с изображениями */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Указываем понятную периодичность в потоке данных у article*/
+article > * + * {
+  margin-top: 1em;
+}
+
+/* Наследуем шрифты для инпутов и кнопок */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Удаляем все анимации и переходы для людей, которые предпочитай их не использовать */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+    background-image: url(wall.png);
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: cursive;
+    font-weight: bold;
+}
+
+.create_modal,
+.login_modal {
+    margin: 0 auto auto auto;
+    background: #FFD124;
+    width: 400px;
+    height: auto;
+    text-align: center;
+    padding: 20px 20px;
+    border-radius: 0 0 6em 6em;
+    box-shadow: 0 0 20px rgba(0,0,0,0.8);
+}
+
+.create_modal {
+    width: 800px;
+}
+
+a_input,
+input,
+button {
+    width: 200px;
+    border-radius: 20px;
+}
+
+a {
+    text-decoration:none;
+    color: black;
+}
+
+.glo{
+    margin: auto;
+    display: block;
+    padding: 5px 20px;
+    text-transform: uppercase;
+    width:200px;
+    text-decoration:none;
+    text-align:center;
+    background-image: linear-gradient(to left,transparent,transparent 50%,#00c6ff 50%,#00c6ff);
+    background-position: 100% 0;
+    background-size: 200% 100%;
+    transition: all .25s ease-in;
+    border: 1px solid #00C6FF;
+}
+
+.glo:hover {
+    background-position: 0 0;
+    color:#fff;
+}
+
+table {
+    margin: 20px auto;
+    font-size: 14px;
+    border-radius: 10px;
+    border-spacing: 0;
+    text-align: center;
+}
+
+
+th {
+    background: #006778;
+    color: white;
+    text-shadow: 0 1px 1px #2D2020;
+    padding: 10px 20px;
+}
+
+th, td {
+    max-width: 600px;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    border-color: white;
+}
+
+th:first-child, td:first-child {
+    text-align: left;
+}
+
+th:first-child {
+    border-top-left-radius: 20px;
+}
+
+th:last-child {
+    border-top-right-radius: 20px;
+    border-right: none;
+}
+
+td {
+    padding: 10px 20px;
+    background: #FFD124;
+}
+
+tr:last-child td:first-child {
+    border-radius: 0 0 0 20px;
+}
+
+tr:last-child td:last-child {
+    border-radius: 0 0 20px 0;
+}
+
+tr td:last-child {
+    border-right: none;
+}
+
+.add_new_and_quit {
+    text-align: center;
+}
+
+select {
+    width: 180px;
+    height: 35px;
+    padding: 4px;
+    border-radius:20px;
+    box-shadow: 2px 2px 8px #999;
+    background: #eee;
+    border: none;
+    outline: none;
+    display: inline-block;
+    appearance: none;
+    cursor: pointer;
+}
+
+label:after {
+    content:'<>';
+    font: 11px "Consolas", monospace;
+    color: #666;
+    transform: rotate(90deg);
+    right: 8px;
+    top:2px;
+    padding: 0 0 2px;
+    border-bottom: 1px solid #ddd;
+    position: absolute;
+    pointer-events: none;
+}
+
+label:before {
+    content: '';
+    right: 6px;
+    top:0px;
+    width: 20px;
+    height: 20px;
+    background: #eee;
+    position: absolute;
+    pointer-events: none;
+    display: block;
+}

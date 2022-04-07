@@ -3,16 +3,19 @@
 {% block title %}Авторизуйтесь{% endblock %}
 
 {% block content %}
-<h2>Вход</h2>
-{% if user.is_authenticated %}
-    <p>Вы уже выполнили вход</p>
-    <a href="{% url 'all_reports' %}">На главную</a>
-{% else %}
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="hidden" name="next" value="{{ next }}">
-        <input type="submit" value="Войти">
-    </form>
-{% endif %}
+<div class="login_modal">
+    <h2>Вход</h2>
+    {% if user.is_authenticated %}
+        <p>Вы уже выполнили вход</p><br>
+        <button class="glo"><a href="{% url 'all_reports' %}">На главную</a></button>
+    {% else %}
+        <form method="post">
+            {% csrf_token %}
+            <div class="input_row">{{ form.username.label_tag }}<br>{{ form.username }}</div>
+            <div class="input_row">{{ form.password.label_tag }}<br>{{ form.password }}</div>
+            <input type="hidden" name="next" value="{{ next }}"><br>
+            <input class="glo" type="submit" value="Войти">
+        </form>
+    {% endif %}
+</div>
 {% endblock %}

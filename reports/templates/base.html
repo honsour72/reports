@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
     <title>{% block title %}Welcome{% endblock %}</title>
 </head>
 <body>
