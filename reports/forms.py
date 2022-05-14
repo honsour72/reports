@@ -6,6 +6,10 @@ from .models import Report, Foreman
 
 class ReportForm(forms.ModelForm):
     foremans = ((x.username, x.get_full_name()) for x in User.objects.all())
+    # foremans = User.objects.all()
+    # foremans = (
+    #     ("t", "TEST")
+    # )
     datepub = forms.DateField(label='Дата создания отчёта')
     timepub = forms.TimeField(label='Время создания отчёта', widget=forms.widgets.TimeInput())
     text = forms.CharField(label='Текст отчёта', widget=forms.widgets.Textarea())
